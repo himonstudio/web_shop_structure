@@ -4,6 +4,25 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
+
+// thêm thư viện mongoose để kết nối vớ mongodb
+const mongoose = require('mongoose');
+// kết nối mongodb
+mongoose.set("strictQuery", false);
+mongoose.connect('mongodb+srv://revolution:revolution@webshop.dfvjvmc.mongodb.net/?retryWrites=true&w=majority', {useNewUrlParser: true});
+const db = mongoose.connection;
+//Bắt sự kiện error
+db.on('error', function(err) {
+  if (err) console.log(err)
+});
+//Bắt sự kiện open
+db.once('open', function() {
+  console.log("Kết nối database thành công !");
+});
+
+
+
 var indexRouter = require('./routes/index.routes');
 var adminRouter = require('./routes/admin.routes');
 
